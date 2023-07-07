@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     [SerializeField] HealthBar _healthBar;
+    [SerializeField] private bool Debugging = false;
 
     void Start()
     {
@@ -14,12 +15,12 @@ public class PlayerBehavior : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q))
         {
             PlayerTakeDamage(10);
-            Debug.Log(GameManager.gameManager._playerHealth.Health);
+            if (Debugging) Debug.Log(GameManager.gameManager._playerHealth.Health);
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
             PlayerHeal(10);
-            Debug.Log(GameManager.gameManager._playerHealth.Health);
+            if (Debugging) Debug.Log(GameManager.gameManager._playerHealth.Health);
         }
     }
 
