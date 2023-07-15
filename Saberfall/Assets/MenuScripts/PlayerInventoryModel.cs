@@ -10,7 +10,7 @@ public sealed class PlayerInventoryModel<T>
         
         if (itemIndex != -1)
             inventoryItems[itemIndex] = new KeyValuePair<T, int>(inventoryItems[itemIndex].Key, inventoryItems[itemIndex].Value + 1);
-        else inventoryItems.Add(new KeyValuePair<T, int>(item, 0));
+        else inventoryItems.Add(new KeyValuePair<T, int>(item, 1));
     }
 
     internal void removeInventoryItem(T item)
