@@ -14,9 +14,16 @@ public sealed class MenuController : SuperController
     // Views
     [SerializeField] private GameObject menuUI;     // Group that contains all other menu Views
 
+    // Views/Starter Menu
     private GameObject startMenu;
-    private GameObject settingsMenu;
-    private GameObject creditsMenu;
+    private GameObject startSettingsMenu;
+    private GameObject startCreditsMenu;
+
+    // Views/In-Game Menu
+    private GameObject inGameMenu;
+    private GameObject inGameSaveGameMenu;
+    private GameObject inGameLoadGameMenu;
+    private GameObject inGameSettingsMenu;
 
     void Awake()
     {
@@ -24,10 +31,14 @@ public sealed class MenuController : SuperController
         if (menuController != null && menuController != this) Destroy(this);
         else menuController = this;
 
-        // Get Views from menuUI parent
-        startMenu       = menuUI.transform.Find("StartMenu").gameObject;
-        settingsMenu    = menuUI.transform.Find("SettingsMenu").gameObject;
-        creditsMenu     = menuUI.transform.Find("Credits").gameObject;
+        // Get Starter Menu Views from menuUI parent
+        startMenu               = menuUI.transform.Find("StartMenu").gameObject;
+        startSettingsMenu       = menuUI.transform.Find("SettingsMenu").gameObject;
+        startCreditsMenu        = menuUI.transform.Find("Credits").gameObject;
+        
+        // Get In-Game Menu Views from menuUI parent
+        inGameMenu              = menuUI.transform.Find("In-Game Menu").gameObject;
+        //inGameSaveGameMenu      = menuUI.transform.Find("").gameObject;
     }
 
     public void startGame()
@@ -40,8 +51,8 @@ public sealed class MenuController : SuperController
     public void viewSetingsMenu()
     {
         startMenu.SetActive(false);
-        creditsMenu.SetActive(false);
-        settingsMenu.SetActive(true);
+        startCreditsMenu.SetActive(false);
+        startSettingsMenu.SetActive(true);
     }
 
     public void setMusicVolume(float volume)
@@ -52,14 +63,13 @@ public sealed class MenuController : SuperController
     public void setFullscreenMode(bool fullscreen)
     {
         Screen.fullScreen = fullscreen;
-        Debug.Log(fullscreen);
     }
 
     public void viewCreditsMenu()
     {
         startMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(true);
+        startSettingsMenu.SetActive(false);
+        startCreditsMenu.SetActive(true);
     }
 
     // Quit game on exit button listener interaction
