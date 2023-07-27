@@ -4,26 +4,35 @@ public sealed class MenuController : SuperController
 {
     public static MenuController menuController { get; private set; }
 
-    // Models
+    // Models ------
     private PlayerInventoryModel<GameObject> playerInventoryModel = new(); // <T> is set to GameObject as GameItem is not set!!
 
-    // Controllers
+    // Controllers ------
     [SerializeField] private GameObject menuScripts;    // Menu Controller
     [SerializeField] private GameObject levelScripts;   // Level Controller
 
-    // Views
+    // Views ------
     [SerializeField] private GameObject menuUI;     // Group that contains all other menu Views
 
     // Views/Starter Menu
+    private static readonly string STARTER_MENU_PATH = "StarterMenuUI/";
+    private GameObject startMenuUI;                 // Group that contains all start menu Views
     private GameObject startMenu;
+    private GameObject startLoadMenu;
     private GameObject startSettingsMenu;
     private GameObject startCreditsMenu;
 
     // Views/In-Game Menu
+    private static readonly string IN_GAME_MENU_PATH = "In-GameMenuUI/";
+    private GameObject inGameMenuUI;                // Group that contains all other in-game menu Views
     private GameObject inGameMenu;
-    private GameObject inGameSaveGameMenu;
-    private GameObject inGameLoadGameMenu;
+    private GameObject inGameSaveMenu;
+    private GameObject inGameLoadMenu;
     private GameObject inGameSettingsMenu;
+    private GameObject inGameInteractionBackground;
+
+    // Views/Inventory
+    private GameObject inventoryUI;
 
     void Awake()
     {
@@ -32,13 +41,22 @@ public sealed class MenuController : SuperController
         else menuController = this;
 
         // Get Starter Menu Views from menuUI parent
-        startMenu               = menuUI.transform.Find("StartMenu").gameObject;
-        startSettingsMenu       = menuUI.transform.Find("SettingsMenu").gameObject;
-        startCreditsMenu        = menuUI.transform.Find("Credits").gameObject;
+        startMenuUI                     = findGameObjectInParent(ref menuUI, STARTER_MENU_PATH);
+        startMenu                       = findGameObjectInParent(ref startMenuUI, "StartMenu");
+        startLoadMenu                   = findGameObjectInParent(ref startMenuUI, "LoadMenu");
+        startSettingsMenu               = findGameObjectInParent(ref startMenuUI, "SettingsMenu");
+        startCreditsMenu                = findGameObjectInParent(ref startMenuUI, "Credits");
         
         // Get In-Game Menu Views from menuUI parent
-        inGameMenu              = menuUI.transform.Find("In-Game Menu").gameObject;
-        //inGameSaveGameMenu      = menuUI.transform.Find("").gameObject;
+        inGameMenuUI                    = findGameObjectInParent(ref menuUI, IN_GAME_MENU_PATH);
+        inGameMenu                      = findGameObjectInParent(ref inGameMenuUI, "In-GameMenu");
+        inGameSaveMenu                  = findGameObjectInParent(ref inGameMenuUI, "In-GameSaveMenu");
+        inGameLoadMenu                  = findGameObjectInParent(ref inGameMenuUI, "In-GameLoadMenu");
+        inGameSettingsMenu              = findGameObjectInParent(ref inGameMenuUI, "In-GameSettingsMenu");
+        inGameInteractionBackground     = findGameObjectInParent(ref inGameMenuUI, "InteractionBackground");
+
+        // Get Inventory Views from menuUI parent
+        inventoryUI                       = menuUI.transform.Find("InventoryUI").gameObject;
     }
 
     public void startGame()
@@ -46,6 +64,23 @@ public sealed class MenuController : SuperController
         // Shows the Start Menu
         menuScripts.SetActive(true); // Controller
         menuUI.SetActive(true); // View
+    }
+
+    // -------------
+    // | StartMenu |
+    // -------------
+
+    public void viewNewGameMenu()
+    {
+        print("New Game Scene NOT Set!");
+        // UnityEngine.SceneManagement.SceneManager.LoadScene("SCENE_NAME");
+        menuUI.SetActive(false);
+    }
+
+    public void viewLoadMenu()
+    {
+        startMenu.SetActive(false);
+        startLoadMenu.SetActive(true);
     }
 
     public void viewSetingsMenu()
@@ -83,15 +118,114 @@ public sealed class MenuController : SuperController
         Application.Quit();
     }
 
+    // ----------------
+    // | In-Game Menu |
+    // ----------------
+
+    public void viewInGameMenu()
+    {
+        inGameMenuUI.SetActive(true);
+    }
+
+    public void viewInGameSaveMenu()
+    {
+        inGameLoadMenu.SetActive(false);
+        inGameSettingsMenu.SetActive(false);
+        activateInteractionBackground();
+        inGameSaveMenu.SetActive(true);
+    }
+
+    public void viewInGameLoadMenu()
+    {
+        inGameSaveMenu.SetActive(false);
+        inGameSettingsMenu.SetActive(false);
+        activateInteractionBackground();
+        inGameLoadMenu.SetActive(true);
+    }
+
+    public void viewInGameSettings()
+    {
+        inGameSaveMenu.SetActive(false);
+        inGameLoadMenu.SetActive(false);
+        activateInteractionBackground();
+        inGameSettingsMenu.SetActive(true);
+    }
+
+    public void hideInGameMenu()
+    {
+        inGameMenuUI.SetActive(false);
+    }
+
+    private void activateInteractionBackground()
+    {
+        if (!inGameInteractionBackground.activeSelf)
+            inGameInteractionBackground.SetActive(true);
+    }
+
+    // -------------
+    // | Inventory |
+    // -------------
+
+    public void viewInventory()
+    {
+        inventoryUI.SetActive(true);
+    }
+
+    public void hideInventory()
+    {
+        inventoryUI.SetActive(false);
+    }
+
+    public void inventorySlotSelected(GameObject slot)
+    {
+        Debug.Log(slot.name.Substring("inventoryslot".Length));
+    }
+
+    // -----------------
+    // | Miscellaneous |
+    // -----------------
+
     public void escPressed()
     {
         Debug.Log("ESCAPE PRESSED!!");
+        Debug.Log("TESTING IN-GAME MENU");
+
+        if (startMenuUI.activeSelf)
+        {
+            startMenuUI.SetActive(false);
+            viewInGameMenu();
+        }
+        else if (inGameMenuUI.activeSelf)
+        {
+            hideInGameMenu();
+            startMenuUI.SetActive(true);
+        }
+    }
+
+    public void tabPressed()
+    {
+        Debug.Log("TAB PRESSED!!");
+        Debug.Log("TESTING INVENTORY");
+
+        if (startMenuUI.activeSelf)
+        {
+            startMenuUI.SetActive(false);
+            viewInventory();
+        }
+        else if (inventoryUI.activeSelf)
+        {
+            hideInventory();
+            startMenuUI.SetActive(true);
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) escPressed();
+        if (Input.GetKeyDown(KeyCode.Tab)) tabPressed();
     }
+
+    private GameObject findGameObjectInParent(ref GameObject parent, string path) => parent.transform.Find(path).gameObject;
 
     /// <summary>
     /// <b>GAMEOBJECT NEEDS TO BE CHANGED TO GAMEITEM ONCE IMPLEMENTED!!</b>
