@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4105592ec4cadc24fa14d221febab92b
+guid: 50b2a849cbc63454dac2c3bdf08d70e8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,11 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< Updated upstream
-  spritePixelsToUnits: 32
-=======
-  spritePixelsToUnits: 31
->>>>>>> Stashed changes
+  spritePixelsToUnits: 33
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,43 +117,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_0
+      name: throwWeapon-1.png_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 2
-        width: 57
-        height: 92
+        x: 6
+        y: 12
+        width: 60
+        height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56d5f43fa64f57e4aa794312bf6706a3
-      internalID: 263371354
+      spriteID: 6a4b3b1cc2e6a584cb5ca41f7972c4c0
+      internalID: 1474179897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_1
+      name: throwWeapon-1.png_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 2
-        width: 73
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 73
+        y: 12
+        width: 98
+        height: 68
+      alignment: 9
+      pivot: {x: 0.5, y: 0.59}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 968aac97b8b4b1e4abd33f92c8a67d83
-      internalID: 746278336
+      spriteID: a18ab1eb5bf70b240af30a5039bbbc00
+      internalID: -1606355508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: throwWeapon-1.png_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 12
+        width: 99
+        height: 66
+      alignment: 9
+      pivot: {x: 0.5, y: 0.61}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dcdb86968a81314392e97e469b55173
+      internalID: 929339776
       vertices: []
       indices: 
       edges: []
@@ -173,8 +190,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Jump1-removebg-preview (1) (1)_0: 263371354
-      Jump1-removebg-preview (1) (1)_1: 746278336
+      throwWeapon-1.png_0: 1474179897
+      throwWeapon-1.png_1: -1606355508
+      throwWeapon-1.png_2: 929339776
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

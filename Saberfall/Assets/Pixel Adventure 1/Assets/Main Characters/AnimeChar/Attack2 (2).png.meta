@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4105592ec4cadc24fa14d221febab92b
+guid: 5982f1162f172a74196ea3b81ec434f4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,11 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< Updated upstream
-  spritePixelsToUnits: 32
-=======
-  spritePixelsToUnits: 31
->>>>>>> Stashed changes
+  spritePixelsToUnits: 23
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,43 +117,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_0
+      name: Attack2 (2)_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 2
-        width: 57
-        height: 92
+        x: 17
+        y: 12
+        width: 40
+        height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56d5f43fa64f57e4aa794312bf6706a3
-      internalID: 263371354
+      spriteID: d3869c0fe7046974193e5a6428d7a7ea
+      internalID: -623022304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_1
+      name: Attack2 (2)_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 2
-        width: 73
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 77
+        y: 15
+        width: 76
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 968aac97b8b4b1e4abd33f92c8a67d83
-      internalID: 746278336
+      spriteID: 909914d39a3afa44189e81d9f846c960
+      internalID: 546446150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack2 (2)_2
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 15
+        width: 111
+        height: 67
+      alignment: 9
+      pivot: {x: 0.5, y: 0.43}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fde7ee9e54d39e4ca56a34b1e258348
+      internalID: -1591377815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack2 (2)_3
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 15
+        width: 109
+        height: 87
+      alignment: 9
+      pivot: {x: 0.5, y: 0.32}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed57fb9d5c4ed0e4db15d224340329fd
+      internalID: 2108645265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack2 (2)_4
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 17
+        width: 63
+        height: 57
+      alignment: 9
+      pivot: {x: 0.5, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c95a87c7571364ca83197e481fae88
+      internalID: -886608309
       vertices: []
       indices: 
       edges: []
@@ -173,8 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Jump1-removebg-preview (1) (1)_0: 263371354
-      Jump1-removebg-preview (1) (1)_1: 746278336
+      Attack2 (2)_0: -623022304
+      Attack2 (2)_1: 546446150
+      Attack2 (2)_2: -1591377815
+      Attack2 (2)_3: 2108645265
+      Attack2 (2)_4: -886608309
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

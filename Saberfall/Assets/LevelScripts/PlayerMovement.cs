@@ -29,9 +29,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float checkRadius;
     [SerializeField] private Transform groundPos;
     private bool isGrounded;
+<<<<<<< Updated upstream
     
     
     private bool jumping = false;
+=======
+    Checks checks;
+    
+    private bool jumping = false;
+
+>>>>>>> Stashed changes
 
     private void Start()
     {
@@ -39,10 +46,21 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+<<<<<<< Updated upstream
+=======
+        checks = GetComponent<Checks>();
+>>>>>>> Stashed changes
         onGround = 0;
         previousVelocityY = rb.velocity.y;
     }
+    public bool CanMove
+    {
+        get
 
+        {
+            return anim.GetBool("canMove");
+        }
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -50,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         //isGrounded = Physics2D.OverlapCircle(groundPos.position, checkRadius, jumpableGround);
         isGrounded = IsGrounded();
         float dirX = Input.GetAxisRaw("Horizontal");
+<<<<<<< Updated upstream
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
 
@@ -59,6 +78,23 @@ public class PlayerMovement : MonoBehaviour
             onGround++;
             jumping = true;
         }
+=======
+        if (CanMove)
+        {
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+
+            if (Input.GetButtonDown("Jump") && onGround < MAX_JUMPS)
+            {
+                anim.SetTrigger("takeOff");
+
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                onGround++;
+                jumping = true;
+            }
+        }
+ 
+>>>>>>> Stashed changes
 
         UpdateAnimationState(dirX);
     }
@@ -77,9 +113,27 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState(float dirX)
     {
 
+<<<<<<< Updated upstream
         //jumping
         if (jumping)
         {
+=======
+        if (rb.velocity.y < -0.8f)
+        {
+
+            anim.SetBool("down", true);
+        }
+        
+        else if (checks.grounded)
+        {
+
+            //anim.SetBool("falling", false);
+            anim.SetBool("down", false);
+        }
+        //jumping
+       // if (jumping)
+        //{
+>>>>>>> Stashed changes
             if (rb.velocity.y > .1f)
             {
                 anim.SetBool("jumping", true);
@@ -103,17 +157,27 @@ public class PlayerMovement : MonoBehaviour
 
             else if (isGrounded)
             {
+<<<<<<< Updated upstream
 
                 anim.SetBool("falling", false);
                 jumping = false;
             }
         }
+=======
+                anim.ResetTrigger("takeOff");
+                anim.SetBool("falling", false);
+                jumping = false;
+
+        }
+        //}
+>>>>>>> Stashed changes
 
 
 
         //running
         if (dirX > 0f)
         {
+<<<<<<< Updated upstream
             //state = MovementState.running;
             sprite.flipX = false;
             anim.SetBool("running", true);
@@ -125,10 +189,20 @@ public class PlayerMovement : MonoBehaviour
             sprite.flipX = true;
             anim.SetBool("running", true);
             //changeAnimation(RUN);
+=======
+            sprite.flipX = false;
+            anim.SetBool("running", true);
+        }
+        else if (dirX < 0f)
+        {
+            sprite.flipX = true;
+            anim.SetBool("running", true);
+>>>>>>> Stashed changes
         }
 
         else
         {
+<<<<<<< Updated upstream
             // anim.SetBool("jumping", false);
             //anim.SetBool("falling", false);
             anim.SetBool("running", false);
@@ -153,6 +227,17 @@ public class PlayerMovement : MonoBehaviour
         //anim.SetInteger("State", (int)state);
     }
 
+=======
+            anim.SetBool("running", false);
+        }
+
+
+ 
+        //anim.SetInteger("State", (int)state);
+    }
+
+
+>>>>>>> Stashed changes
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundPos.position, checkRadius, ground);

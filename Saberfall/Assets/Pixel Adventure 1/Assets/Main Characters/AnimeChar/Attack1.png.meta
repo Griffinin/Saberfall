@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4105592ec4cadc24fa14d221febab92b
+guid: 0e9f4412b815e1e4e839854fdedf88e6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,11 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< Updated upstream
   spritePixelsToUnits: 32
-=======
-  spritePixelsToUnits: 31
->>>>>>> Stashed changes
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,43 +117,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_0
+      name: Attack1_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 2
-        width: 57
-        height: 92
+        x: 3
+        y: 16
+        width: 54
+        height: 82
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56d5f43fa64f57e4aa794312bf6706a3
-      internalID: 263371354
+      spriteID: 03289b65be36d2845b06bec45c3ec0d0
+      internalID: 19069479
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump1-removebg-preview (1) (1)_1
+      name: Attack1_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 2
+        x: 103
+        y: 10
         width: 73
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 82
+      alignment: 9
+      pivot: {x: 0.5, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 968aac97b8b4b1e4abd33f92c8a67d83
-      internalID: 746278336
+      spriteID: 488077138dd297342ab557a12cd75811
+      internalID: -230236540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack1_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 14
+        width: 109
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b5bc1c6dd1f1444dbb65ba20ec4cdd9
+      internalID: 1339541906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack1_3
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 12
+        width: 85
+        height: 90
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a0651f2fbcf73f48b21a391063f78b0
+      internalID: -918482559
       vertices: []
       indices: 
       edges: []
@@ -173,8 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Jump1-removebg-preview (1) (1)_0: 263371354
-      Jump1-removebg-preview (1) (1)_1: 746278336
+      Attack1_0: 19069479
+      Attack1_1: -230236540
+      Attack1_2: 1339541906
+      Attack1_3: -918482559
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

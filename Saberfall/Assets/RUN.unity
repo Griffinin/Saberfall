@@ -344,6 +344,11 @@ GameObject:
   - component: {fileID: 560715963}
   - component: {fileID: 560715964}
   - component: {fileID: 560715968}
+<<<<<<< Updated upstream
+=======
+  - component: {fileID: 560715969}
+  - component: {fileID: 560715970}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -411,7 +416,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560715958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: -5.5, y: 0.21, z: 0}
+=======
+  m_LocalPosition: {x: -5.5, y: 0.09, z: 0}
+>>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -497,6 +506,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< Updated upstream
+=======
+--- !u!114 &560715969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560715958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95963cb55ecf9f148a7cf7136bb92d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  head: {fileID: 946822532}
+  foot1: {fileID: 427650769}
+  foot2: {fileID: 586875513}
+  body: {fileID: 2017227235}
+  _isGrounded: 0
+--- !u!114 &560715970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560715958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb108a0382d41db428a57c8139bc116c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRate: 2
+  nextAttackTime: 0
+>>>>>>> Stashed changes
 --- !u!1 &586875511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,6 +2840,7 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+<<<<<<< Updated upstream
 --- !u!1 &909240541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,6 +2925,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &946822530
 GameObject:
   m_ObjectHideFlags: 0
@@ -37019,7 +37079,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
+<<<<<<< Updated upstream
   orthographic size: 5
+=======
+  orthographic size: 11
+>>>>>>> Stashed changes
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -37362,6 +37426,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640913155}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &2013584542
 GameObject:
   m_ObjectHideFlags: 0
@@ -37446,6 +37511,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &2017227233
 GameObject:
   m_ObjectHideFlags: 0
