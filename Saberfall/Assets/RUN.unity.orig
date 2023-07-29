@@ -158,11 +158,19 @@ RectTransform:
   - {fileID: 1640913156}
   - {fileID: 1621131832}
   m_Father: {fileID: 560715960}
+<<<<<<< HEAD
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.22431, y: 10.97}
+=======
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -10.224309, y: 10.97}
+>>>>>>> prototypeJumpRunIdle
   m_SizeDelta: {x: 386.5564, y: 37.6676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314610139
@@ -226,6 +234,8 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+<<<<<<< HEAD
+=======
 --- !u!1 &427650767
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +294,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4975016, y: 0.4804963}
   m_EdgeRadius: 0
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &536355356
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +352,11 @@ GameObject:
   - component: {fileID: 560715960}
   - component: {fileID: 560715959}
   - component: {fileID: 560715961}
+<<<<<<< HEAD
+  - component: {fileID: 560715962}
+  - component: {fileID: 560715963}
+  - component: {fileID: 560715964}
+=======
   - component: {fileID: 560715963}
   - component: {fileID: 560715964}
   - component: {fileID: 560715968}
@@ -349,6 +365,7 @@ GameObject:
   - component: {fileID: 560715969}
   - component: {fileID: 560715970}
 >>>>>>> Stashed changes
+>>>>>>> prototypeJumpRunIdle
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -397,7 +414,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+<<<<<<< HEAD
+  m_Sprite: {fileID: -6367560908665664636, guid: cd947491a13509945aa1b644f9db3ef2, type: 3}
+=======
   m_Sprite: {fileID: -1011315638, guid: ba6e47b4029d6714d8bc759ab35c425f, type: 3}
+>>>>>>> prototypeJumpRunIdle
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -416,6 +437,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560715958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
+  m_LocalPosition: {x: -0.72, y: 2.41, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1116749705}
+  - {fileID: 314610138}
+=======
 <<<<<<< Updated upstream
   m_LocalPosition: {x: -5.5, y: 0.21, z: 0}
 =======
@@ -429,6 +458,7 @@ Transform:
   - {fileID: 946822531}
   - {fileID: 427650768}
   - {fileID: 586875512}
+>>>>>>> prototypeJumpRunIdle
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -453,6 +483,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+<<<<<<< HEAD
+--- !u!61 &560715962
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560715958}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0321545, y: -0.24919695}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9710578, y: 1.5016061}
+  m_EdgeRadius: 0
+=======
+>>>>>>> prototypeJumpRunIdle
 --- !u!114 &560715963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d1f1cc6a25b0c4e97a11762656191b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  MAX_JUMPS: 2
+=======
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -472,6 +534,7 @@ MonoBehaviour:
   jumpForce: 14
   checkRadius: 2
   groundPos: {fileID: 878183964}
+>>>>>>> prototypeJumpRunIdle
 --- !u!114 &560715964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +548,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 1554327192}
+<<<<<<< HEAD
+  Debugging: 0
+=======
 --- !u!95 &560715968
 Animator:
   serializedVersion: 5
@@ -612,6 +678,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.38048124, y: 0.664824}
   m_EdgeRadius: 0
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &878183963
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,8 +693,12 @@ GameObject:
   - component: {fileID: 878183967}
   - component: {fileID: 878183969}
   - component: {fileID: 878183968}
+<<<<<<< HEAD
+  m_Layer: 0
+=======
   - component: {fileID: 878183970}
   m_Layer: 6
+>>>>>>> prototypeJumpRunIdle
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +713,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878183963}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+<<<<<<< HEAD
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+=======
   m_LocalPosition: {x: -0.07, y: -0.12, z: 0}
+>>>>>>> prototypeJumpRunIdle
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2597,6 +2672,8 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+<<<<<<< HEAD
+=======
   - first: {x: 10, y: 3, z: 0}
     second:
       serializedVersion: 2
@@ -2627,6 +2704,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+>>>>>>> prototypeJumpRunIdle
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
@@ -2641,7 +2719,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+<<<<<<< HEAD
+  - m_RefCount: 1
+=======
   - m_RefCount: 4
+>>>>>>> prototypeJumpRunIdle
     m_Data: {fileID: 11400000, guid: d6692fa6c3854f746ad6dca6692ed8d0, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 93e33134e3f7a6641bd21e1ed1f095f8, type: 2}
@@ -2672,7 +2754,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+<<<<<<< HEAD
+  - m_RefCount: 1
+=======
   - m_RefCount: 4
+>>>>>>> prototypeJumpRunIdle
     m_Data: {fileID: -79519567, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 150460863, guid: 413986c4a668c374d8de72a47621b531, type: 3}
@@ -2691,7 +2777,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 300433427, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   m_TileMatrixArray:
+<<<<<<< HEAD
+  - m_RefCount: 189
+=======
   - m_RefCount: 192
+>>>>>>> prototypeJumpRunIdle
     m_Data:
       e00: 1
       e01: 0
@@ -2710,7 +2800,11 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
+<<<<<<< HEAD
+  - m_RefCount: 189
+=======
   - m_RefCount: 192
+>>>>>>> prototypeJumpRunIdle
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2763,7 +2857,11 @@ CompositeCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+<<<<<<< HEAD
+  m_UsedByEffector: 0
+=======
   m_UsedByEffector: 1
+>>>>>>> prototypeJumpRunIdle
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
@@ -2772,6 +2870,18 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 878183967}
     m_ColliderPaths:
+<<<<<<< HEAD
+    - - X: -340000000
+        Y: -40000000
+      - X: 290000000
+        Y: -40000000
+      - X: 290000000
+        Y: -10000000
+      - X: -340000000
+        Y: -10000000
+  m_CompositePaths:
+    m_Paths:
+=======
     - - X: 130000000
         Y: 40000000
       - X: 100000000
@@ -2794,6 +2904,7 @@ CompositeCollider2D:
       - {x: 12.99997, y: 4}
       - {x: 10, y: 3.999971}
       - {x: 10.00003, y: 3}
+>>>>>>> prototypeJumpRunIdle
     - - {x: 28.999971, y: -4}
       - {x: 28.999971, y: -1}
       - {x: -34, y: -1.0000293}
@@ -2821,6 +2932,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+<<<<<<< HEAD
+=======
 --- !u!251 &878183970
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -2985,6 +3098,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6998203, y: 0.7798681}
   m_EdgeRadius: 0
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &969214834
 GameObject:
   m_ObjectHideFlags: 0
@@ -36789,6 +36903,8 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+<<<<<<< HEAD
+=======
 --- !u!1 &1029899312
 GameObject:
   m_ObjectHideFlags: 0
@@ -36873,6 +36989,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &1031935629
 GameObject:
   m_ObjectHideFlags: 0
@@ -36941,6 +37058,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
 --- !u!1 &1060147210
 GameObject:
   m_ObjectHideFlags: 0
@@ -37025,6 +37144,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &1116749702
 GameObject:
   m_ObjectHideFlags: 0
@@ -37036,7 +37156,10 @@ GameObject:
   - component: {fileID: 1116749705}
   - component: {fileID: 1116749704}
   - component: {fileID: 1116749703}
+<<<<<<< HEAD
+=======
   - component: {fileID: 1116749706}
+>>>>>>> prototypeJumpRunIdle
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -37079,11 +37202,15 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
+<<<<<<< HEAD
+  orthographic size: 9
+=======
 <<<<<<< Updated upstream
   orthographic size: 5
 =======
   orthographic size: 11
 >>>>>>> Stashed changes
+>>>>>>> prototypeJumpRunIdle
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -37107,6 +37234,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116749702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+<<<<<<< HEAD
+  m_LocalPosition: {x: 1.2715158, y: 3.36, z: -6.0244765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 560715960}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
   m_LocalPosition: {x: 0.53151584, y: 3.98, z: -6.0244765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37128,6 +37264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 560715960}
   smoothness: 0
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &1554327189
 GameObject:
   m_ObjectHideFlags: 0
@@ -37426,6 +37563,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640913155}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+=======
 <<<<<<< Updated upstream
 --- !u!1 &2013584542
 GameObject:
@@ -37571,6 +37710,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9328749, y: 1.3440161}
   m_EdgeRadius: 0
+>>>>>>> prototypeJumpRunIdle
 --- !u!1 &2069631918
 GameObject:
   m_ObjectHideFlags: 0

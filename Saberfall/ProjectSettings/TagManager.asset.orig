@@ -11,8 +11,12 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< HEAD
   - Test
+=======
   - ground
+>>>>>>> prototypeJumpRunIdle
+  - 
   - 
   - 
   - 
@@ -38,6 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgorund
+    uniqueID: 1690687981
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Terrain]
+    uniqueID: 938798683
     locked: 0

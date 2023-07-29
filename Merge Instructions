@@ -1,0 +1,34 @@
+Merge instructions 
+
+key points:
+*use individual prefabs
+*use precreated GUID for scene/prefab/meta files that contain auto-generated GUID
+*if merging use git mergetool
+
+Have 1 main scene that is worked on when we merge and no one should work on individually. use prefabs when possible and everyone make individual prefabs and don't edit eachothers
+
+for meta/prefab files use the premade GUID in 'GUID - list.txt' file in the project and then add file to the list and add corresponding GUID to that meta/prefab file.
+
+
+
+if you want to merge into a test branch you can easily resolve conflict errors by following this video to use yaml smart merge
+
+https://www.youtube.com/watch?v=xkxLbViPWh8&ab_channel=RichardBeare
+
+
+this video shows an example of using smart mergetool with git bash which will clear up many problems that don't need to be cleared manually (skip to 12:15 for merge conflict resolution)
+
+https://www.youtube.com/watch?v=ZI7Uz-VnO8U&ab_channel=ErtanTuran
+
+
+for reference on why/how prefabs are useful. I recommend this demonstration:
+https://www.youtube.com/watch?v=YgoCp2tzRh0&ab_channel=JasonWeimann
+
+
+using smart mergetool requires using git bash command line
+for git bash tips check here
+
+https://www.youtube.com/watch?v=oQc-2gsjgDg&ab_channel=MarioKaack
+
+
+
