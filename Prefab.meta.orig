@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 969caa4bd6c54271a772a2e91d766165
+<<<<<<< HEAD
+guid: 9195424546d04434cb3b031eb707ef12
+=======
+guid: 5e24daa3c7d475d469e407e424a663c8
+>>>>>>> enemy-mechanics
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
