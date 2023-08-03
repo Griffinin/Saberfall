@@ -4,6 +4,9 @@ public sealed class MenuController : SuperController
 {
     public static MenuController menuController { get; private set; }
 
+    // Vars
+    private static int selectedInventorySlot;
+
     // Models ------
     private PlayerInventoryModel<GameObject> playerInventoryModel = new(); // <T> is set to GameObject as GameItem is not set!!
 
@@ -32,7 +35,11 @@ public sealed class MenuController : SuperController
     private GameObject inGameInteractionBackground;
 
     // Views/Inventory
-    private GameObject inventoryUI;
+    private GameObject inventoryUI;                 // Group that contains all other inventory Views
+    private GameObject inventorySlots;
+    private GameObject inventoryAction;
+    private GameObject inventoryInteractions;
+    private GameObject inventorySpritePlaceholder;
 
     void Awake()
     {
@@ -56,7 +63,11 @@ public sealed class MenuController : SuperController
         inGameInteractionBackground     = findGameObjectInParent(ref inGameMenuUI, "InteractionBackground");
 
         // Get Inventory Views from menuUI parent
-        inventoryUI                       = menuUI.transform.Find("InventoryUI").gameObject;
+        inventoryUI                     = findGameObjectInParent(ref menuUI, "InventoryUI");
+        inventorySlots                  = findGameObjectInParent(ref inventoryUI, "InventorySlots");
+        inventoryAction                 = findGameObjectInParent(ref inventoryUI, "InventoryAction");
+        inventorySpritePlaceholder      = findGameObjectInParent(ref inventoryAction, "SpritePlaceholder");
+        inventoryInteractions           = findGameObjectInParent(ref inventoryAction, "Interactions");
     }
 
     public void startGame()
@@ -176,20 +187,150 @@ public sealed class MenuController : SuperController
         inventoryUI.SetActive(false);
     }
 
+    private void viewInventoryAction() => inventoryAction.SetActive(true);
+
+    private void hideInventoryAction() => inventoryAction.SetActive(false);
+
+    private void viewInventoryInteractions() => inventoryInteractions.SetActive(true);
+
+    private void hideInventoryInteractions() => inventoryInteractions.SetActive(false);
+
     public void inventorySlotSelected(GameObject slot)
     {
-        Debug.Log(slot.name.Substring("inventoryslot".Length));
+        selectedInventorySlot = int.Parse(slot.name[13..]);
+
+        if (slot.transform.childCount > 0)
+        {
+            viewInventoryAction();
+            updateSpritePlaceholder(slot.transform.GetChild(0).gameObject);
+            viewInventoryInteractions();
+            updateInventoryItemFrequency();
+            inventorySpritePlaceholder.transform.GetChild(0).name = slot.transform.GetChild(0).name;    // Update Placeholder sprite name
+        } else hideInventoryAction();
     }
+
+    private void updateSpritePlaceholder(GameObject item)
+    {
+        if(inventorySpritePlaceholder.transform.childCount>0)
+        {
+            replaceSpritePlaceholder(ref item);
+        }
+        else
+        {
+            createSpriteforSpritePlaceholder(ref item);
+        }
+    }
+
+    private GameObject createSpriteforSpritePlaceholder(ref GameObject item)
+    {
+        GameObject newSprite = new GameObject(item.name, typeof(UnityEngine.UI.Image));
+        newSprite.transform.SetParent(inventorySpritePlaceholder.transform, false);
+        newSprite.GetComponent<UnityEngine.UI.Image>().sprite = item.GetComponent<UnityEngine.UI.Image>().sprite;
+        newSprite.GetComponent<UnityEngine.UI.Image>().preserveAspect = true;
+
+        RectTransform spriteRectTransform = newSprite.GetComponent<RectTransform>();
+        spriteRectTransform.anchorMin = new Vector2(.1f, .1f);
+        spriteRectTransform.anchorMax = new Vector2(.9f, .9f);
+        spriteRectTransform.offsetMin = new Vector2(0, 0);
+        spriteRectTransform.offsetMax = new Vector2(0, 0);
+        spriteRectTransform.sizeDelta = new Vector2(0, 0);
+
+        return newSprite;
+    }
+
+    private void replaceSpritePlaceholder(ref GameObject item)
+    {
+        inventorySpritePlaceholder.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = item.GetComponent<UnityEngine.UI.Image>().sprite;
+    }
+
+    private void destroySpritePlaceholder() => Destroy(inventorySpritePlaceholder.transform.GetChild(0).gameObject);
+
+    public void inventoryUseItem()
+    {
+        // IDK, USE_ITEM IS FOR EQUIPING ITEMS SO CAN'T MAKE RN
+    }
+
+    public void inventoryDropItem()
+    {
+        GameObject inventoryItemAmount = findGameObjectInParent(ref inventoryInteractions, "ItemAmount");
+        TMPro.TextMeshProUGUI itemAmountTMP = inventoryItemAmount.GetComponent<TMPro.TextMeshProUGUI>();
+
+        playerInventoryModel.removeInventoryItem(GameObject.Find("ItemList/" + inventorySlots.transform.GetChild(selectedInventorySlot - 1).GetChild(0).name));
+        itemAmountTMP.SetText("x" + (int.Parse(itemAmountTMP.text[1..]) - 1));
+
+        if(int.Parse(itemAmountTMP.text[1..])<1)
+        {
+            hideInventoryInteractions();
+            hideInventoryAction();
+            Destroy(inventorySlots.transform.GetChild(selectedInventorySlot - 1).GetChild(0).gameObject);
+            inventorySlots.transform.GetChild(selectedInventorySlot - 1).DetachChildren();  // Because Destroy() executes at end of frame
+            if (selectedInventorySlot - 1 != getUsedInventorySlotsLength())
+                sortInventorySlots();
+        }
+    }
+
+    private GameObject getInventorySlot(int index)
+    {
+        return inventorySlots.transform.GetChild(index).gameObject;
+    }
+
+    private int getUsedInventorySlotsLength()
+    {
+        int count = 0;
+        for (int i = 0; i < inventorySlots.transform.childCount; i++)
+            if (inventorySlots.transform.GetChild(i).childCount != 0) count++;
+        return count;
+    }
+
+    public bool addInventoryItem(GameObject item, bool exclusive = false)
+    {
+        if(playerInventoryModel.itemCount(item)>=1 && !exclusive)
+        {
+            playerInventoryModel.addInventoryItem(item);
+            return true;
+        } 
+        else
+        {
+            int usedInventorySlotsLength = getUsedInventorySlotsLength();
+
+            if (usedInventorySlotsLength >= 0 && usedInventorySlotsLength <= 54)
+            {
+                GameObject itemInventory = new GameObject(item.name, typeof(UnityEngine.UI.Image));
+                itemInventory.transform.SetParent(inventorySlots.transform.GetChild(usedInventorySlotsLength), false);
+                itemInventory.GetComponent<UnityEngine.UI.Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
+                itemInventory.GetComponent<UnityEngine.UI.Image>().preserveAspect = true;   // Looks goofy otherwise
+
+                playerInventoryModel.addInventoryItem(item, exclusive);
+
+                return true;
+            }
+            else return false;
+        }
+    }
+
+    private void sortInventorySlots()
+    {
+        if (getUsedInventorySlotsLength() + 1 > 1)   // Prior length is needed
+        {
+            GameObject lastItem = inventorySlots.transform.GetChild(getUsedInventorySlotsLength()).GetChild(0).gameObject;
+            lastItem.transform.SetParent(inventorySlots.transform.GetChild(selectedInventorySlot - 1), false);
+        }
+    }
+
+    private void updateInventoryItemFrequency()
+    {
+        findGameObjectInParent(ref inventoryInteractions, "ItemAmount").GetComponent<TMPro.TextMeshProUGUI>().SetText(
+            "x" + playerInventoryModel.itemCount(GameObject.Find("ItemList/" + inventorySlots.transform.GetChild(selectedInventorySlot - 1).GetChild(0).name)));
+    }
+
+    public void getItemCount(GameObject item) => playerInventoryModel.itemCount(GameObject.Find("ItemList/" + item.name));
 
     // -----------------
     // | Miscellaneous |
     // -----------------
 
-    public void escPressed()
+    private void escPressed()
     {
-        Debug.Log("ESCAPE PRESSED!!");
-        Debug.Log("TESTING IN-GAME MENU");
-
         if (startMenuUI.activeSelf)
         {
             startMenuUI.SetActive(false);
@@ -202,11 +343,8 @@ public sealed class MenuController : SuperController
         }
     }
 
-    public void tabPressed()
+    private void tabPressed()
     {
-        Debug.Log("TAB PRESSED!!");
-        Debug.Log("TESTING INVENTORY");
-
         if (startMenuUI.activeSelf)
         {
             startMenuUI.SetActive(false);
@@ -214,8 +352,28 @@ public sealed class MenuController : SuperController
         }
         else if (inventoryUI.activeSelf)
         {
+            hideInventoryAction();
             hideInventory();
             startMenuUI.SetActive(true);
+        }
+    }
+
+    private void qPressed()
+    {
+        switch (Random.Range(1, 3 + 1))
+        {
+            case 1:
+                if (!addInventoryItem(GameObject.Find("ItemList/Knife"), true)) print("INVEN FULL");
+                break;
+            case 2:
+                if (!addInventoryItem(GameObject.Find("ItemList/Sword"))) print("INVEN FULL");
+                break;
+            case 3:
+                if (!addInventoryItem(GameObject.Find("ItemList/Sword2"))) print("INVEN FULL");
+                break;
+            default:
+                Debug.Log("Some how we're outside the switch range.");
+                break;
         }
     }
 
@@ -223,31 +381,8 @@ public sealed class MenuController : SuperController
     {
         if (Input.GetKeyDown(KeyCode.Escape)) escPressed();
         if (Input.GetKeyDown(KeyCode.Tab)) tabPressed();
+        if (Input.GetKeyDown(KeyCode.Q)) qPressed();
     }
 
     private GameObject findGameObjectInParent(ref GameObject parent, string path) => parent.transform.Find(path).gameObject;
-
-    /// <summary>
-    /// <b>GAMEOBJECT NEEDS TO BE CHANGED TO GAMEITEM ONCE IMPLEMENTED!!</b>
-    /// </summary>
-    public void useItem(GameObject item)
-    {
-        playerInventoryModel.removeInventoryItem(item);
-    }
-
-    /// <summary>
-    /// <b>GAMEOBJECT NEEDS TO BE CHANGED TO GAMEITEM ONCE IMPLEMENTED!!</b>
-    /// </summary>
-    public void addItem(GameObject item)
-    {
-        playerInventoryModel.addInventoryItem(item);
-    }
-
-    /// <summary>
-    /// <b>GAMEOBJECT NEEDS TO BE CHANGED TO GAMEITEM ONCE IMPLEMENTED!!</b>
-    /// </summary>
-    public void dropItem(GameObject item)
-    {
-        playerInventoryModel.removeAllOfItem(item);
-    }
 }
