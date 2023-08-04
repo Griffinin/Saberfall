@@ -1,146 +1,139 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+﻿using UnityEngine;
 
-namespace Saberfall
+public class EnemyBehavior : MonoBehaviour
 {
-    [RequireComponent(typeof(CharacterController2D))]
-    [RequireComponent(typeof(Collider2D))]
-    public class EnemyBehaviour : MonoBehaviour
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private int damageAmount = 10;
+    private bool movingRight = true;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    private Animator anim;
+
+    [SerializeField] HealthBar _healthBar;
+    [SerializeField] EnemyHealth _enemyHealth;
+
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private int attackDamage = 20;
+    [SerializeField] private float attackCooldown = 1f;
+    private float timeSinceLastAttack = 0;
+    private Transform player;
+
+    // Animation States
+    private const string IDLE = "Idle";
+    private const string RUN = "Run";
+    private const string DEATH = "Death";
+    private const string ATTACK = "Attack";
+
+    private void Start()
     {
-        static Collider2D[] s_ColliderCache = new Collider2D[16];
+        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
-        public Vector3 moveVector { get { return m_MoveVector; } }
-        public Transform Target { get { return m_Target; } }
+        _enemyHealth = new EnemyHealth(100, 100);
+        _healthBar.SetMaxHleath(_enemyHealth.MaxHealth);
 
-        public bool spriteFaceLeft = false;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
-        [Header("Movement")]
-        public float speed;
-        public float gravity = 10.0f;
-
-        [Header("Scanning settings")]
-        [Range(0.0f, 360.0f)]
-        public float viewDirection = 0.0f;
-        [Range(0.0f, 360.0f)]
-        public float viewFov;
-        public float viewDistance;
-        public float timeBeforeTargetLost = 3.0f;
-
-        [Header("Melee Attack Data")]
-        public float meleeRange = 3.0f;
-
-        protected CharacterController2D m_CharacterController2D;
-        protected Collider2D m_Collider;
-        protected Vector3 m_MoveVector;
-        protected Transform m_Target;
-        protected Vector3 m_TargetShootPosition;
-        protected float m_TimeSinceLastTargetView;
-
-        protected Vector2 m_SpriteForward;
-        protected ContactFilter2D m_Filter;
-
-        protected bool m_Dead = false;
-
-        private void Awake()
+    private void Update()
+    {
+        // movement
+        if (movingRight)
         {
-            m_CharacterController2D = GetComponent<CharacterController2D>();
-            m_Collider = GetComponent<Collider2D>();
-            m_SpriteForward = spriteFaceLeft ? Vector2.left : Vector2.right;
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            sprite.flipX = false;
+            ChangeAnimationState(RUN);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            sprite.flipX = true;
+            ChangeAnimationState(RUN);
         }
 
-        private void OnEnable()
+        // Check for zero health
+        if (_enemyHealth.Health <= 0)
         {
-            m_Dead = false;
-            m_Collider.enabled = true;
+            ChangeAnimationState(DEATH);
+            Destroy(gameObject, 1f); 
         }
 
-        void FixedUpdate()
-        {
-            if (m_Dead)
-                return;
-
-            m_MoveVector.y = Mathf.Max(m_MoveVector.y - gravity * Time.deltaTime, -gravity);
-
-            //m_CharacterController2D.Move(m_MoveVector * Time.deltaTime);
-            //m_CharacterController2D.CheckCapsuleEndCollisions();
-            UpdateTimers();
-        }
-
-        void UpdateTimers()
-        {
-            if (m_TimeSinceLastTargetView > 0.0f)
-                m_TimeSinceLastTargetView -= Time.deltaTime;
-        }
-
-        public void SetMoveVector(Vector2 newMoveVector)
-        {
-            m_MoveVector = newMoveVector;
-        }
-
-        public void UpdateFacing()
-        {
-            bool faceLeft = m_MoveVector.x < 0f;
-            bool faceRight = m_MoveVector.x > 0f;
-
-            if (faceLeft)
-            {
-                m_SpriteForward = spriteFaceLeft ? Vector2.right : Vector2.left;
-            }
-            else if (faceRight)
-            {
-                m_SpriteForward = spriteFaceLeft ? Vector2.left : Vector2.right;
-            }
-        }
-
-        //public void ScanForPlayer()
+        // Attack logic
+        //float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        //if (distanceToPlayer < attackRange && timeSinceLastAttack > attackCooldown)
         //{
-        //    //Vector3 dir = PlayerCharacter.PlayerInstance.transform.position - transform.position;
+        //    Attack();
+        //    timeSinceLastAttack = 0;
+        //}
+        //timeSinceLastAttack += Time.deltaTime;
 
-        //    if (dir.sqrMagnitude > viewDistance * viewDistance)
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        if (distanceToPlayer < attackRange)
+        {
+            if (timeSinceLastAttack > attackCooldown)
+            {
+                Attack();
+                timeSinceLastAttack = 0;
+            }
+        }
+        timeSinceLastAttack += Time.deltaTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+         
+            GameManager.gameManager._playerHealth.DamageUnit(damageAmount);
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+          
+            movingRight = !movingRight;
+        }
+    }
+
+    public void EnemyTakeDamage(int damage)
+    {
+        _enemyHealth.DamageEnemy(damage);
+        _healthBar.SetHleath(_enemyHealth.Health);
+    }
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(newState)) return;
+
+        anim.Play(newState);
+    }
+
+    private void Attack()
+    {
+        ChangeAnimationState(ATTACK);
+
+        // Check if player is in range
+        //Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        //foreach (Collider2D player in hitPlayers)
+        //{
+        //    if (player.CompareTag("Player"))
         //    {
-        //        return;
+        //        GameManager.gameManager._playerHealth.DamageUnit(attackDamage);
         //    }
-
-        //    Vector3 testForward = Quaternion.Euler(0, 0, spriteFaceLeft ? Mathf.Sign(m_SpriteForward.x) * -viewDirection : Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
-        //    float angle = Vector3.Angle(testForward, dir);
-
-        //    if (angle > viewFov * 0.5f)
-        //    {
-        //        return;
-        //    }
-
-        //    //m_Target = PlayerCharacter.PlayerInstance.transform;
-        //    m_TimeSinceLastTargetView = timeBeforeTargetLost;
         //}
 
-        public void CheckTargetStillVisible()
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        foreach (Collider2D playerCollider in hitPlayers)
         {
-            if (m_Target == null)
-                return;
-
-            Vector3 toTarget = m_Target.position - transform.position;
-
-            if (toTarget.sqrMagnitude < viewDistance * viewDistance)
+            if (playerCollider.CompareTag("Player"))
             {
-                Vector3 testForward = Quaternion.Euler(0, 0, spriteFaceLeft ? -viewDirection : viewDirection) * m_SpriteForward;
-
-                float angle = Vector3.Angle(testForward, toTarget);
-
-                if (angle <= viewFov * 0.5f)
-                {
-                    m_TimeSinceLastTargetView = timeBeforeTargetLost;
-                }
-            }
-
-            if (m_TimeSinceLastTargetView <= 0.0f)
-            {
-                m_Target = null;
+                GameManager.gameManager._playerHealth.DamageUnit(attackDamage);
             }
         }
+    }
 
-
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
