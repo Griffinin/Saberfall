@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -24,8 +25,11 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float attackCooldown = 1f;
     private float timeSinceLastAttack = 0;
     private Transform player;
+    public PatrolPath path;
+    internal PatrolPath.Mover mover;
+    
 
-   // protected GroundedController2D groundedController2D;
+    // protected GroundedController2D groundedController2D;
 
     // Animation States
     private const string IDLE = "void_idle";
@@ -41,9 +45,18 @@ public class EnemyBehavior : MonoBehaviour
         anim = GetComponent<Animator>();
 
         _enemyHealth = new EnemyHealth(100, 100);
-        _healthBar.SetMaxHleath(_enemyHealth.MaxHealth);
+        
+        //todo Add when health set for player
+        //_healthBar.SetMaxHleath(_enemyHealth.MaxHealth);
+
+        if (path != null)
+        {
+            mover = path.CreateMover(moveSpeed);
+        }
+
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
 
         ChangeAnimationState(IDLE); //todo initaliaze or replace with tag?
 
@@ -57,57 +70,19 @@ public class EnemyBehavior : MonoBehaviour
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
 
-        // If the enemy is not grounded, apply a gravity-like force.
         if (!isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -2);  
+            rb.velocity = new Vector2(rb.velocity.x, -2);
         }
         else
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);  
-        }
-        // movement
-        if (movingRight)
-        {
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-            sprite.flipX = false;
-            ChangeAnimationState(RUN);
-        }
-        else
-        {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            sprite.flipX = true;
-            ChangeAnimationState(RUN);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
 
-        //if (groundedController2D != null)
-        //{
-        //    groundedController2D.CheckCapsuleEndCollisions();
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("groundedController2D is not initialized!");
-        //}
-
-        // Check for zero health
-        if (_enemyHealth.Health <= 0)
-        {
-            ChangeAnimationState(DEATH);
-            Destroy(gameObject, 1f);
-        }
-
-        // Attack logic
-        //float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        //if (distanceToPlayer < attackRange && timeSinceLastAttack > attackCooldown)
-        //{
-        //    Attack();
-        //    timeSinceLastAttack = 0;
-        //}
-        //timeSinceLastAttack += Time.deltaTime;
-
-        if (player != null) //todo add better error handling
+        if (player != null)
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
             if (distanceToPlayer < attackRange)
             {
                 if (timeSinceLastAttack > attackCooldown)
@@ -116,22 +91,109 @@ public class EnemyBehavior : MonoBehaviour
                     timeSinceLastAttack = 0;
                 }
             }
-            timeSinceLastAttack += Time.deltaTime;
         }
+        else
+        {
+            // Here's the patrol logic:
+            if (mover != null)
+            {
+                Vector2 newPosition = mover.Position;
+                movingRight = newPosition.x > transform.position.x;
+                transform.position = newPosition;
+
+                sprite.flipX = !movingRight; // flip the enemy sprite based on direction
+                ChangeAnimationState(RUN);
+            }
+        }
+        timeSinceLastAttack += Time.deltaTime;
     }
+
+
+    //private void Update()
+    //{
+    //    isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
+
+    //    // If the enemy is not grounded, apply a gravity-like force.
+    //    if (!isGrounded)
+    //    {
+    //        rb.velocity = new Vector2(rb.velocity.x, -2);  
+    //    }
+    //    else
+    //    {
+    //        rb.velocity = new Vector2(rb.velocity.x, 0);  
+    //    }
+
+    //    //if (path != null)
+    //    //{
+    //    //    if (mover == null) mover = path.CreateMover(control.maxSpeed * 0.5f);
+    //    //    control.move.x = Mathf.Clamp(mover.Position.x - transform.position.x, -1, 1);
+    //    //}
+    //    // movement
+    //    if (movingRight)
+    //    {
+    //        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+    //        sprite.flipX = false;
+    //        ChangeAnimationState(RUN);
+    //    }
+    //    else
+    //    {
+    //        rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+    //        sprite.flipX = true;
+    //        ChangeAnimationState(RUN);
+    //    }
+
+    //    //if (groundedController2D != null)
+    //    //{
+    //    //    groundedController2D.CheckCapsuleEndCollisions();
+    //    //}
+    //    //else
+    //    //{
+    //    //    Debug.LogWarning("groundedController2D is not initialized!");
+    //    //}
+
+    //    // Check for zero health
+    //    if (_enemyHealth.Health <= 0)
+    //    {
+    //        ChangeAnimationState(DEATH);
+    //        Destroy(gameObject, 1f);
+    //    }
+
+    //    // Attack logic
+    //    //float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+    //    //if (distanceToPlayer < attackRange && timeSinceLastAttack > attackCooldown)
+    //    //{
+    //    //    Attack();
+    //    //    timeSinceLastAttack = 0;
+    //    //}
+    //    //timeSinceLastAttack += Time.deltaTime;
+
+    //    if (player != null) //todo add better error handling
+    //    {
+    //        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+    //        if (distanceToPlayer < attackRange)
+    //        {
+    //            if (timeSinceLastAttack > attackCooldown)
+    //            {
+    //                Attack();
+    //                timeSinceLastAttack = 0;
+    //            }
+    //        }
+    //        timeSinceLastAttack += Time.deltaTime;
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
+        //if (collision.gameObject.CompareTag("Player"))
+        //{
 
-            GameManager.gameManager._playerHealth.DamageUnit(damageAmount, defaultKnockback);
-        }
-        else if (collision.gameObject.CompareTag("Wall"))
-        {
+        //    GameManager.gameManager._playerHealth.DamageUnit(damageAmount, defaultKnockback);
+        //}
+        //else if (collision.gameObject.CompareTag("Wall"))
+        //{
 
-            movingRight = !movingRight;
-        }
+        //    movingRight = !movingRight;
+        //}
     }
 
     public void EnemyTakeDamage(int damage)
