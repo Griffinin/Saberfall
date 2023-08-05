@@ -5,6 +5,9 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private int damageAmount = 10;
 
+    [SerializeField] LayerMask groundLayer; // This is used to detect the ground.
+    private bool isGrounded;
+
     private bool movingRight = true;
 
     private Rigidbody2D rb;
@@ -14,11 +17,15 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] HealthBar _healthBar;
     [SerializeField] EnemyHealth _enemyHealth;
 
+    [SerializeField] private Vector2 defaultKnockback = new Vector2(0, 0);
+
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private int attackDamage = 20;
     [SerializeField] private float attackCooldown = 1f;
     private float timeSinceLastAttack = 0;
     private Transform player;
+
+   // protected GroundedController2D groundedController2D;
 
     // Animation States
     private const string IDLE = "void_idle";
@@ -28,6 +35,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Start()
     {
+        //groundedController2D = GetComponent<GroundedController2D>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -36,10 +44,28 @@ public class EnemyBehavior : MonoBehaviour
         _healthBar.SetMaxHleath(_enemyHealth.MaxHealth);
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        ChangeAnimationState(IDLE); //todo initaliaze or replace with tag?
+
+        //float widthScaleFactor = 202f / 37f;
+        //float heightScaleFactor = 123f / 27f;
+        //transform.localScale = new Vector3(widthScaleFactor, heightScaleFactor, 1f);
+
     }
 
     private void Update()
     {
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
+
+        // If the enemy is not grounded, apply a gravity-like force.
+        if (!isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -2);  
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);  
+        }
         // movement
         if (movingRight)
         {
@@ -53,6 +79,15 @@ public class EnemyBehavior : MonoBehaviour
             sprite.flipX = true;
             ChangeAnimationState(RUN);
         }
+
+        //if (groundedController2D != null)
+        //{
+        //    groundedController2D.CheckCapsuleEndCollisions();
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("groundedController2D is not initialized!");
+        //}
 
         // Check for zero health
         if (_enemyHealth.Health <= 0)
@@ -70,16 +105,19 @@ public class EnemyBehavior : MonoBehaviour
         //}
         //timeSinceLastAttack += Time.deltaTime;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer < attackRange)
+        if (player != null) //todo add better error handling
         {
-            if (timeSinceLastAttack > attackCooldown)
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            if (distanceToPlayer < attackRange)
             {
-                Attack();
-                timeSinceLastAttack = 0;
+                if (timeSinceLastAttack > attackCooldown)
+                {
+                    Attack();
+                    timeSinceLastAttack = 0;
+                }
             }
+            timeSinceLastAttack += Time.deltaTime;
         }
-        timeSinceLastAttack += Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -87,7 +125,7 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            GameManager.gameManager._playerHealth.DamageUnit(damageAmount);
+            GameManager.gameManager._playerHealth.DamageUnit(damageAmount, defaultKnockback);
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
@@ -128,7 +166,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (playerCollider.CompareTag("Player"))
             {
-                GameManager.gameManager._playerHealth.DamageUnit(attackDamage);
+                GameManager.gameManager._playerHealth.DamageUnit(attackDamage, defaultKnockback);
             }
         }
     }
