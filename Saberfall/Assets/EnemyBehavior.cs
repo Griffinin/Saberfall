@@ -4,6 +4,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private int damageAmount = 10;
+
     private bool movingRight = true;
 
     private Rigidbody2D rb;
