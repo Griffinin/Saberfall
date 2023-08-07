@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4376810172709177429}
   - component: {fileID: 1116494999623257313}
   - component: {fileID: 1116494999623257312}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: void_enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,15 +74,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -281534534, guid: 06d1137e343e7634bb91d0816c44d472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.4962964, y: 2.7333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1116494999623257312
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 7750868166681615131}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38b539da27cdb6749a8f7f64c6d71ee8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 72801adc39b99c24b89af465cdd8ee52, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

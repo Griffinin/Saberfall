@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - ground
+<<<<<<< HEAD
+  - 
+  - 
+  - 
+  - 
+=======
+  - player
+  - enemy
+  - playerhitbox
+  - enemyhitbotx
+>>>>>>> prototype-game
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+<<<<<<< HEAD
+  - name: Backgorund
+    uniqueID: 1690687981
+=======
+  - name: fifth
+    uniqueID: 152756023
+    locked: 0
+  - name: Fourth
+    uniqueID: 465284769
+    locked: 0
+  - name: Third
+    uniqueID: 1344524359
+    locked: 0
+  - name: Second
+    uniqueID: 2943191405
+>>>>>>> prototype-game
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+<<<<<<< HEAD
+  - name: Terrain]
+    uniqueID: 938798683
+=======
+  - name: Terrain
+    uniqueID: 3358018631
+    locked: 0
+  - name: enemy
+    uniqueID: 1973929227
+    locked: 0
+  - name: player
+    uniqueID: 3997238519
+>>>>>>> prototype-game
+    locked: 0
