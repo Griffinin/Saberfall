@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class FinishCheckpoint : MonoBehaviour
 {
-    //private BoxCollider2D coll;
+    private bool levelCompleted = false;
     //private AudioSource finishSound;
     // Start is called before the first frame update
     
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        if(collision.gameObject.name == "Player" && !levelCompleted)
         {
+            levelCompleted = true;
             Invoke("CompleteLevel", 2f);
-            CompleteLevel();
+    
         }
     }
 
