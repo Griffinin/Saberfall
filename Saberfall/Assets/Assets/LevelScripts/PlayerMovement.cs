@@ -158,15 +158,11 @@ public class PlayerMovement : MonoBehaviour
             if (dirX > 0f && !flipping)
             {
                 flip();
-                //sprite.flipX = false;
-                //anim.SetBool("running", true);
 
             }
             else if (dirX < 0f && flipping)
             {
-                //sprite.flipX = true;
                 flip();
-                //anim.SetBool("running", true);
 
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private bool beenHit = false;
     public int damage = 1000;
     public Vector2 knockback = new Vector2(0, 0);
     public Vector2 moveSpeed = new Vector2(3f, 0);
@@ -18,26 +19,39 @@ public class Projectile : MonoBehaviour
     }
 
 
-    void Start()
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
+
+    private void Start()
     {
         rb.velocity = new Vector2(moveSpeed.x * transform.localScale.x, moveSpeed.y);
+
+        StartCoroutine(DestroyAfterDelay(15f));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        UnitHealth damageable = collision.GetComponentInParent<UnitHealth>();
-        if (damageable != null)
+        if (!beenHit)
         {
-            Vector2 deliveredKnockback = transform.localScale.x>0 ?knockback : new Vector2(-knockback.x, knockback.y);
-            bool gotHit = damageable.DamageUnit(damage, knockback);
-            if (gotHit)
+            UnitHealth damageable = collision.GetComponentInParent<UnitHealth>();
+            if (damageable != null)
             {
-                Debug.Log(collision.name + " hit for " + damage);
-                Destroy(gameObject);
+                Vector2 deliveredKnockback = transform.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
+                bool gotHit = damageable.DamageUnit(damage, knockback);
+                if (gotHit)
+                {
+                    Debug.Log(collision.name + " hit for " + damage);
+                    Destroy(gameObject);
+                }
             }
+            beenHit = true;
         }
-
     }
+
+    
 
 
 

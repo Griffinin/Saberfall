@@ -23,11 +23,11 @@ public class PlayerBehavior : MonoBehaviour
         }*/
     }
 
-   /* private void PlayerTakeDamage(int damageAmount)
+   private void PlayerTakeDamage(float health)
     {
-        GameManager.gameManager._playerHealth.DamageUnit(damageAmount);
+       // GameManager.gameManager._playerHealth.DamageUnit(damageAmount);
         _healthBar.SetHleath(GameManager.gameManager._playerHealth.Health);
-    }*/
+    }
 
     private void PlayerHeal(int healAmmount)
     {
