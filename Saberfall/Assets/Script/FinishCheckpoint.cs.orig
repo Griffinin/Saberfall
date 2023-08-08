@@ -1,7 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
 
+public class FinishCheckpoint : MonoBehaviour
+{
+    [SerializeField] private AudioSource finishSound;
+    // Start is called before the first frame update
+    private void Start()
+    {
+        //finishSound = GetComponent<AudioSource>;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Player")
+        {
+            //finishSound.Play();
+            CompleteLevel();
+=======
 using UnityEngine.SceneManagement;
 
 public class FinishCheckpoint : MonoBehaviour
@@ -18,13 +35,20 @@ public class FinishCheckpoint : MonoBehaviour
             levelCompleted = true;
             Invoke("CompleteLevel", 2f);
     
+>>>>>>> LevelDesign(Final)
         }
     }
 
     private void CompleteLevel()
     {
+<<<<<<< HEAD
+
+    }
+
+=======
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }
+>>>>>>> LevelDesign(Final)
     
 }
