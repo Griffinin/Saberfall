@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4376810172709177429}
   - component: {fileID: 1116494999623257313}
   - component: {fileID: 1116494999623257312}
+  - component: {fileID: 3422731286687758487}
   m_Layer: 8
   m_Name: void_enemy
   m_TagString: enemy
@@ -95,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 7750868166681615131}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 72801adc39b99c24b89af465cdd8ee52, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f6ba272306e83d439b44984a507d076, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -106,3 +107,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3422731286687758487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7750868166681615131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089f5ebc93aac8a4ba2ee390ce6e218a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  damageAmount: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _healthBar: {fileID: 0}
+  defaultKnockback: {x: 0, y: 0}
+  attackRange: 2
+  attackDamage: 20
+  attackCooldown: 1
+  patrolRadius: 5
+  path: {fileID: 0}
