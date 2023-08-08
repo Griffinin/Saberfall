@@ -8,6 +8,8 @@ public class Gunner : MonoBehaviour
     [SerializeField] private DetectionZone zone;
     [SerializeField] private SpriteRenderer gun;
     private UnitHealth uh;
+    [SerializeField] private GameObject playerLoc;
+    private bool flipping = false;
     // Start is called before the first frame update
     private bool _hasTarget = false;
     private void Awake()
@@ -36,6 +38,25 @@ public class Gunner : MonoBehaviour
             gun.enabled = true;
         }
 
+        if (uh.IsAlive)
+        {
+            if (playerLoc.transform.position.x > (transform.position.x + 4f) && !flipping)
+            {
+                flip();
 
+            }
+            else if (playerLoc.transform.position.x < (transform.position.x-4f) && flipping)
+            {
+                flip();
+
+            }
+        }
+    }
+    private void flip()
+    {
+        Vector3 currScale = transform.localScale;
+        currScale.x *= -1;
+        transform.localScale = currScale;
+        flipping = !flipping;
     }
 }

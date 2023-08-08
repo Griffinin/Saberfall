@@ -8,18 +8,23 @@ public class UnitHealth : MonoBehaviour
     [SerializeField] private int _maxHealth = 10000;
     [SerializeField] private bool _IsAlive = true;
     //public UnityEvent<int, Vector2> damageableHit;
+    public UnityEvent<int, int> healthChanged;
     private Animator anim;
+ 
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+  
+       
     }
 
     public int Health
     {
         get { return _currentHealth; }
-        private set { 
+        set { 
             _currentHealth = value;
+            healthChanged?.Invoke(_currentHealth, _maxHealth);
             if (_currentHealth <= 0)
             {
                 IsAlive = false;
@@ -61,6 +66,7 @@ public class UnitHealth : MonoBehaviour
            // damageableHit?.Invoke(damageAmount, knockback);
             return true;
         }
+
         return false;
     }
 

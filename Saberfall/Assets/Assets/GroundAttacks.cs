@@ -6,11 +6,13 @@ public class GroundAttacks : MonoBehaviour
 {
     [SerializeField] private float attackRate = 0.1f;
     [SerializeField] private float nextAttackTime = 0f;
+    Checks check;
+    private bool airAttack = false;
     // Start is called before the first frame update
     private Animator anim;
     private void Awake()
     {
-        
+        check = GetComponent<Checks>();
         anim = GetComponent<Animator>();
 
     }
@@ -18,7 +20,7 @@ public class GroundAttacks : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Time.time >= nextAttackTime)
+        if (Time.time >= nextAttackTime && check.grounded)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -38,6 +40,13 @@ public class GroundAttacks : MonoBehaviour
             }
 
         }
+
+        if (!check.grounded && !check.jumpAttack)
+        {
+            if (Input.GetKeyDown(KeyCode.R) && !airAttack) { SlashUp(); airAttack = true; }
+        }
+
+
         if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift))
         {
             SlashDown();
@@ -47,11 +56,18 @@ public class GroundAttacks : MonoBehaviour
             SwipeUp();
         }
 
+        if (check.grounded)
+        {
+            airAttack = false;
+        }
+
     }
 
     private void SlashUp()
     {
         anim.SetTrigger("attack");
+        anim.ResetTrigger("swipe");
+        anim.ResetTrigger("slashd");
     }
 
     private void SwipeUp()

@@ -83,8 +83,6 @@ public sealed class MenuController : SuperController
 
     public void viewNewGameMenu()
     {
-        //print("New Game Scene NOT Set!");
-
         UnityEngine.SceneManagement.SceneManager.LoadScene("Level 2", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         startMenuUI.transform.Find("Background").gameObject.SetActive(false);
         startMenu.SetActive(false);
@@ -107,6 +105,10 @@ public sealed class MenuController : SuperController
     {
         MainAudioMixer.SetFloat("MasterVolume", volume);
     }
+
+    // Return game master volume value
+    // Rounded to decimal places
+    public float getMusicVolume() => MainAudioMixer.GetFloat("MasterVolume", out float volume) ? Mathf.Round(volume * 100f) * .01f : 0f;
 
     public void setFullscreenMode(bool fullscreen)
     {
@@ -160,8 +162,16 @@ public sealed class MenuController : SuperController
     {
         inGameSaveMenu.SetActive(false);
         inGameLoadMenu.SetActive(false);
-        activateInteractionBackground();
-        inGameSettingsMenu.SetActive(true);
+        if (inGameSettingsMenu.activeSelf)
+        {
+            inGameInteractionBackground.SetActive(false);
+            inGameSettingsMenu.SetActive(false);
+        } 
+        else 
+        {
+            activateInteractionBackground();
+            inGameSettingsMenu.SetActive(true);
+        }
     }
 
     public void hideInGameMenu()
@@ -325,7 +335,9 @@ public sealed class MenuController : SuperController
             "x" + playerInventoryModel.itemCount(GameObject.Find("ItemList/" + inventorySlots.transform.GetChild(selectedInventorySlot - 1).GetChild(0).name)));
     }
 
-    public void getItemCount(GameObject item) => playerInventoryModel.itemCount(GameObject.Find("ItemList/" + item.name));
+    public int getItemCount(GameObject item) => playerInventoryModel.itemCount(GameObject.Find("ItemList/" + item.name));
+    
+    public bool hasItem(GameObject item) => getItemCount(item) >= 1;
 
     // -----------------
     // | Miscellaneous |
@@ -381,9 +393,9 @@ public sealed class MenuController : SuperController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) escPressed();
-        if (Input.GetKeyDown(KeyCode.Tab)) tabPressed();
-        if (Input.GetKeyDown(KeyCode.Q)) qPressed();
+        if (Input.GetKeyDown(KeyCode.Escape)) escPressed(); // In-game menu
+        if (Input.GetKeyDown(KeyCode.Tab)) tabPressed();    // Inventory
+        // if (Input.GetKeyDown(KeyCode.Q)) qPressed();    // Test for inventory
     }
 
     private GameObject findGameObjectInParent(ref GameObject parent, string path) => parent.transform.Find(path).gameObject;
