@@ -84,7 +84,7 @@ public sealed class MenuController : SuperController
 
     public void viewNewGameMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainChar-scene", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("RemoveThisLev1", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         startMenuUI.transform.Find("Background").gameObject.SetActive(false);
         startMenu.SetActive(false);
     }
