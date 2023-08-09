@@ -10,14 +10,15 @@ public class UnitHealth : MonoBehaviour
     //public UnityEvent<int, Vector2> damageableHit;
     public UnityEvent<int, int> healthChanged;
     private Animator anim;
- 
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-  
-       
+
+
     }
+
 
     public int Health
     {
@@ -50,6 +51,18 @@ public class UnitHealth : MonoBehaviour
         }
     }
 
+    public bool IsHit
+    {
+        get
+        {
+            return anim.GetBool("isHit");
+        }
+        private set
+        {
+            anim.SetBool("isHit", value);
+        }
+    }
+
     public UnitHealth(int health, int maxhealth)
     {
         _currentHealth = health;
@@ -63,8 +76,10 @@ public class UnitHealth : MonoBehaviour
         if (IsAlive)
         {
             Health -= damageAmount;
-           // damageableHit?.Invoke(damageAmount, knockback);
+            IsHit = true;
+            // damageableHit?.Invoke(damageAmount, knockback);
             return true;
+
         }
 
         return false;

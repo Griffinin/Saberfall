@@ -7,6 +7,12 @@ public class ProjectileLauncher : MonoBehaviour
     public GameObject[] projectilePrefab;
     private int index = 0;
     public Transform spawnProj;
+
+    public int getIndex()
+    {
+        return index;
+    }
+
     // public GameObject projectilePrefab;
     void Update()
     {
@@ -29,7 +35,13 @@ public class ProjectileLauncher : MonoBehaviour
         switch (index)
         {
             case 0:
+                MenuController.removeItem(GameObject.Find("ItemList/Sword"));
+                break;
+            case 1:
                 MenuController.removeItem(GameObject.Find("ItemList/Knife"));
+                break;
+            case 2:
+                MenuController.removeItem(GameObject.Find("ItemList/Sword2"));
                 break;
             default:
                 break;

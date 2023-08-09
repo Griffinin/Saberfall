@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class inventoryAdder : MonoBehaviour
@@ -7,9 +8,21 @@ public class inventoryAdder : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        MenuController.addInventoryItem(GameObject.Find("ItemList/Knife"), true);
-        MenuController.addInventoryItem(GameObject.Find("ItemList/Knife"), true);
-        MenuController.addInventoryItem(GameObject.Find("ItemList/Knife"), true);
+        for(int i = 0; i<5; i++)
+        {
+            MenuController.addInventoryItem(GameObject.Find("ItemList/Knife"));
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            MenuController.addInventoryItem(GameObject.Find("ItemList/Sword"));
+        }
+
+        for(int i = 0; i< 5; i++)
+        {
+            MenuController.addInventoryItem(GameObject.Find("ItemList/Sword2"));
+        }
+     
     }
 
     // Update is called once per frame

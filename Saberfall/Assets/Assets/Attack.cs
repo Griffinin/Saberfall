@@ -8,9 +8,9 @@ public class Attack : MonoBehaviour
     public Vector2 knockback = new Vector2(0, 0);
 
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         UnitHealth damageable = collision.GetComponentInParent<UnitHealth>();
         if (damageable != null)
         {
@@ -21,6 +21,7 @@ public class Attack : MonoBehaviour
                 Debug.Log(collision.name + " hit for " + damage);
             }
         }
+
 
     }
 }

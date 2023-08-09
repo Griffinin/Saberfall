@@ -8,18 +8,22 @@ public class GroundAttacks : MonoBehaviour
     [SerializeField] private float nextAttackTime = 0f;
     Checks check;
     private bool airAttack = false;
+    private bool canThrow;
+    ProjectileLauncher projectileLauncher;
     // Start is called before the first frame update
     private Animator anim;
     private void Awake()
     {
         check = GetComponent<Checks>();
         anim = GetComponent<Animator>();
+        projectileLauncher = GetComponent<ProjectileLauncher>();
 
     }
 
     // Update is called once per frame
     private void Update()
     {
+        inventoryCheck();
         if (Time.time >= nextAttackTime && check.grounded)
         {
             if (Input.GetMouseButtonDown(0))
@@ -33,7 +37,7 @@ public class GroundAttacks : MonoBehaviour
                 Punch();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
-            else if(Input.GetKeyDown(KeyCode.R))
+            else if(Input.GetKeyDown(KeyCode.R) && canThrow)
             {
                 anim.SetTrigger("rangedAttack");
 
@@ -43,7 +47,7 @@ public class GroundAttacks : MonoBehaviour
 
         if (!check.grounded && !check.jumpAttack)
         {
-            if (Input.GetKeyDown(KeyCode.R) && !airAttack) { SlashUp(); airAttack = true; }
+            if (Input.GetKeyDown(KeyCode.R) && !airAttack && canThrow) { SlashUp(); airAttack = true; }
         }
 
 
@@ -62,6 +66,7 @@ public class GroundAttacks : MonoBehaviour
         }
 
     }
+
 
     private void SlashUp()
     {
@@ -83,6 +88,25 @@ public class GroundAttacks : MonoBehaviour
     private void Punch()
     {
         anim.SetTrigger("punch");
+    }
+
+
+
+    private void inventoryCheck()
+    {
+        int ind = projectileLauncher.getIndex();
+        if(ind == 0)
+        {
+            canThrow = MenuController.hasItem(GameObject.Find("ItemList/Sword"));
+        }
+        else if (ind == 1)
+        {
+            canThrow = MenuController.hasItem(GameObject.Find("ItemList/Knife"));
+        }
+        else if (ind == 2)
+        {
+            canThrow = MenuController.hasItem(GameObject.Find("ItemList/Sword2"));
+        }
     }
 }
 

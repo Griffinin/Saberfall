@@ -28,7 +28,7 @@ public class EnemyBehavior : MonoBehaviour
     private Transform player;
     public PatrolPath path;
     internal PatrolPath.Mover mover;
-    
+    private bool flipping = true;
 
     // protected GroundedController2D groundedController2D;
 
@@ -68,7 +68,14 @@ public class EnemyBehavior : MonoBehaviour
         //transform.localScale = new Vector3(widthScaleFactor, heightScaleFactor, 1f);
 
     }
+    public bool CanMove
+    {
+        get
 
+        {
+            return anim.GetBool("canMove");
+        }
+    }
 
     private void Update()
     {
@@ -96,30 +103,48 @@ public class EnemyBehavior : MonoBehaviour
                     timeSinceLastAttack = 0;
                 }
             }
-            else if (mover != null) // Patrol logic
+            else if (mover != null && CanMove) // Patrol logic
             {
                 Vector2 newPosition = mover.Position;
                 movingRight = newPosition.x > transform.position.x;
                 transform.position = newPosition;
 
                 sprite.flipX = !movingRight; // flip the enemy sprite based on direction
+                /*if(!movingRight && flipping)
+                {
+                    flip();
+                }*/
 
                 anim.SetTrigger("enemyRun");
                 // ChangeAnimationState(RUN);
             }
         }
-        else if (mover != null) // If the player is not within the patrol radius, continue patrolling.
+        else if (mover != null && CanMove) // If the player is not within the patrol radius, continue patrolling.
         {
             Vector2 newPosition = mover.Position;
             movingRight = newPosition.x > transform.position.x;
             transform.position = newPosition;
 
             sprite.flipX = !movingRight; // flip the enemy sprite based on direction
+            /*if(!movingRight && !flipping)
+            {
+                flip();
+            }*/
 
             anim.SetTrigger("enemyRun");
             // ChangeAnimationState(RUN);
         }
         timeSinceLastAttack += Time.deltaTime;
+
+
+        /*if (!movingRight && flipping)
+        {
+            flip();
+        }
+        else if (movingRight && !flipping)
+        {
+            flip();
+        }*/
     }
 
 
@@ -137,11 +162,11 @@ public class EnemyBehavior : MonoBehaviour
         //}
     }
 
-    public void EnemyTakeDamage(int damage)
+    /*public void EnemyTakeDamage(int damage)
     {
         _enemyHealth.DamageEnemy(damage);
         _healthBar.SetHleath(_enemyHealth.Health);
-    }
+    }*/
 
     private void ChangeAnimationState(string newState)
     {
@@ -166,18 +191,31 @@ public class EnemyBehavior : MonoBehaviour
         //    }
         //}
 
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
+       /* Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
         foreach (Collider2D playerCollider in hitPlayers)
         {
             if (playerCollider.CompareTag("Player"))
             {
                 GameManager.gameManager._playerHealth.DamageUnit(attackDamage, defaultKnockback);
             }
-        }
+        }*/
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public void DestroyGameObject()
+    {
+        Destroy(gameObject);
+    }
+
+    private void flip()
+    {
+        Vector3 currScale = transform.localScale;
+        currScale.x *= -1;
+        transform.localScale = currScale;
+        flipping = !flipping;
     }
 }
