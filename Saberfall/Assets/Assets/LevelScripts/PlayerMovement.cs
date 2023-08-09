@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask ground;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private int currLevel = 1;
 
     //public Transform groundPos;
     [SerializeField] private float checkRadius;
@@ -52,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
         get
         {
             return anim.GetBool("isAlive");
+        }
+        set  ///remove maybe
+        {
+            anim.SetBool("isAlive", value);
         }
     }
 
@@ -176,11 +182,42 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("running", false);
         }
 
+        if (!IsAlive)
+        {
+            if(currLevel == 0)
+            {
+                Invoke("ReloadLevel1", 0.1f);
+                IsAlive = true;
+            }
+            else if (currLevel == 1)
+            {
+                Invoke("ReloadLevel2", 0.1f);
+                IsAlive = true;
+            }
+        }
+
 
  
         //anim.SetInteger("State", (int)state);
     }
 
+    private void ReloadLevel1()
+    {
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
+        SceneManager.UnloadSceneAsync("RemoveThisLev1");
+        SceneManager.LoadSceneAsync("RemoveThisLev1", LoadSceneMode.Additive);
+
+    }
+
+
+    private void ReloadLevel2()
+    {
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
+        //SceneManager.UnloadSceneAsync("RemoveThisLev2");
+        SceneManager.UnloadSceneAsync("MainChar-scene");
+        SceneManager.LoadSceneAsync("MainChar-scene", LoadSceneMode.Additive);
+
+    }
 
     private bool IsGrounded()
     {

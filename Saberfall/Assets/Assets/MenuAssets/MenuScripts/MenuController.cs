@@ -46,7 +46,7 @@ public sealed class MenuController : SuperController
         // Make singleton class
         if (menuController != null && menuController != this) Destroy(this);
         else menuController = this;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         // Get Starter Menu Views from menuUI parent
         startMenuUI = findGameObjectInParent(ref menuUI, STARTER_MENU_PATH);

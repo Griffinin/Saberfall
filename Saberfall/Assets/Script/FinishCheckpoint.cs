@@ -10,6 +10,10 @@ public class FinishCheckpoint : MonoBehaviour
     //private AudioSource finishSound;
     // Start is called before the first frame update
     
+    public bool currentLev()
+    {
+        return levelCompleted;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,11 +27,14 @@ public class FinishCheckpoint : MonoBehaviour
        // }
     }
 
+
+
+
     private void CompleteLevel()
     {
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
-        
-        SceneManager.LoadScene("MainChar-scene");
+        SceneManager.UnloadSceneAsync("RemoveThisLev1");
+        SceneManager.LoadScene("MainChar-scene", LoadSceneMode.Additive);
 
     }
     
