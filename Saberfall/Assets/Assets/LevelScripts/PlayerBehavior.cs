@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//obsolete PlayerBehavior script
 public class PlayerBehavior : MonoBehaviour
 {
     [SerializeField] HealthBar _healthBar;

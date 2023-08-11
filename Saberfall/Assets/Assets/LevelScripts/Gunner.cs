@@ -10,16 +10,14 @@ public class Gunner : MonoBehaviour
     private UnitHealth uh;
     [SerializeField] private GameObject playerLoc;
     private bool flipping = false;
-    // Start is called before the first frame update
     private bool _hasTarget = false;
     private void Awake()
     {
         anim = GetComponent<Animator>();
-       // gun = GetComponent<SpriteRenderer>();
         gun = transform.Find("Gun").GetComponent<SpriteRenderer>();
-        //gun = GetComponent<SpriteRenderer>();
         uh = GetComponent<UnitHealth>();
     }
+    //function to check to set the hasTarget variable transitioning the gunner to the shooting phase
     public bool HasTarget { get { return _hasTarget; }private set
         {
             _hasTarget = value;
@@ -32,12 +30,14 @@ public class Gunner : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //relies on the detection zone to find target
         HasTarget = zone.detectedCollider.Count > 0;
         if (!uh.IsAlive)
         {
+            //enable a gun sprite if the enemy dies
             gun.enabled = true;
         }
-
+        //logic for flipping the gunner
         if (uh.IsAlive)
         {
             if (playerLoc.transform.position.x > (transform.position.x + 4f) && !flipping)

@@ -17,14 +17,12 @@ public class FinishCheckpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       // if(collision.gameObject.name == "Player" && !levelCompleted)
-       // {
+ 
             levelCompleted = true;
-            //CompleteLevel();
-            Invoke("CompleteLevel", 2f);
+            Invoke("CompleteLevel", 2f); //invokes the completelevel function to load the next level
 
             Debug.Log("Player entered checkpoint");
-       // }
+
     }
 
 
@@ -32,7 +30,7 @@ public class FinishCheckpoint : MonoBehaviour
 
     private void CompleteLevel()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
+
         SceneManager.UnloadSceneAsync("RemoveThisLev1");
         SceneManager.LoadScene("MainChar-scene", LoadSceneMode.Additive);
 

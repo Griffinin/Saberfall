@@ -14,12 +14,11 @@ public class DeathZone : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // if(collision.gameObject.name == "Player" && !levelCompleted)
-        // {
 
+        //invokes the completelevel function to reload the scene on death
         Invoke("CompleteLevel", 0.1f);
 
-        // }
+
     }
 
 

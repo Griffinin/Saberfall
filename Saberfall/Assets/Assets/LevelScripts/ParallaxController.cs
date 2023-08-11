@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//obsolete parallax script
 public class ParallaxController : MonoBehaviour
 {
     [SerializeField]Transform cam; // Main Camera

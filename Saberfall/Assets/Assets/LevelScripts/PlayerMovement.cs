@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         onGround = 0;
         previousVelocityY = rb.velocity.y;
     }
-
+    //sets isAlive on animation state
     public bool IsAlive
     {
         get
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isAlive", value);
         }
     }
-
+    //gets the CanMove bool from animator
     public bool CanMove
     {
         get
@@ -76,10 +76,11 @@ public class PlayerMovement : MonoBehaviour
         //isGrounded = Physics2D.OverlapCircle(groundPos.position, checkRadius, jumpableGround);
         isGrounded = IsGrounded();
         dirX = Input.GetAxisRaw("Horizontal");
+        //makes sure the player can move first
         if (CanMove)
         {
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
-
+            //jumping
 
             if (Input.GetButtonDown("Jump") && onGround < MAX_JUMPS)
             {
@@ -94,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateAnimationState(dirX);
     }
-
+    //obsolete function
     private void changeAnimation(string newState)
     {
         if(currState == newState)
@@ -114,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
         if (checks.grounded)
         {
 
-            //anim.SetBool("falling", false);
             anim.SetBool("down", false);
         }
         else if (rb.velocity.y < -0.8f)
@@ -122,13 +122,10 @@ public class PlayerMovement : MonoBehaviour
 
             anim.SetBool("down", true);
         }
-        //jumping
-        // if (jumping)
-        //{
+        //sets if player is jumping/falling
         if (rb.velocity.y > .1f)
             {
                 anim.SetBool("jumping", true);
-                //state = MovementState.jumping;
 
             }
             else if (rb.velocity.y < -.1f)
@@ -138,12 +135,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("jumping", false);
                 //state = MovementState.falling;
             }
-            /* else if (rb.velocity.y < -.1f && onGround!=0)
-             {
 
-                 anim.SetBool("down", true);
-                 //state = MovementState.falling;
-             }*/
             // MovementState state;
 
             else if (checks.grounded)
@@ -161,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
         //running
         if (IsAlive)
         {
+            //flips the sprite
             if (dirX > 0f && !flipping)
             {
                 flip();
@@ -172,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-
+        //sets running animation states
         if (dirX != 0)
         {
             anim.SetBool("running", true);
@@ -198,12 +191,10 @@ public class PlayerMovement : MonoBehaviour
 
 
  
-        //anim.SetInteger("State", (int)state);
     }
 
     private void ReloadLevel1()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
         SceneManager.UnloadSceneAsync("RemoveThisLev1");
         SceneManager.LoadSceneAsync("RemoveThisLev1", LoadSceneMode.Additive);
 
@@ -212,8 +203,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReloadLevel2()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  //change to Find instead
-        //SceneManager.UnloadSceneAsync("RemoveThisLev2");
         SceneManager.UnloadSceneAsync("MainChar-scene");
         SceneManager.LoadSceneAsync("MainChar-scene", LoadSceneMode.Additive);
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DetectionZone : MonoBehaviour
 {
+    //used to detect if there are colliders within the detection zone
     public List<Collider2D> detectedCollider = new List<Collider2D>();
     Collider2D col;
     private void Awake()

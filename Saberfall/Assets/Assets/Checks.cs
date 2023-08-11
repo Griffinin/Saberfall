@@ -17,8 +17,9 @@ public class Checks : MonoBehaviour
     RaycastHit2D[] groundHits1 = new RaycastHit2D[5];
     Animator anim;
 
-    
+
     [SerializeField] private bool _isGrounded;
+    //getter and setters
     public bool grounded
     {
         get
@@ -56,6 +57,8 @@ public class Checks : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //checks if the player is grounded or not using raycasting 
+        //checks if the player is sufficiently high up enough to throw a sword using raycasting
         grounded = foot1.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0 || foot2.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
         jumpAttack = foot1.Cast(Vector2.down, castFilter, groundHits1, jumpAttackDist) > 0;
     }

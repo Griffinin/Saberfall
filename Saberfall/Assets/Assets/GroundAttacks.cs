@@ -10,7 +10,6 @@ public class GroundAttacks : MonoBehaviour
     private bool airAttack = false;
     private bool canThrow;
     ProjectileLauncher projectileLauncher;
-    // Start is called before the first frame update
     private Animator anim;
     private void Awake()
     {
@@ -23,20 +22,24 @@ public class GroundAttacks : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //call the inventory check function to make sure there are still swords that can be thrown
         inventoryCheck();
         if (Time.time >= nextAttackTime && check.grounded)
         {
+            //first combo
             if (Input.GetMouseButtonDown(0))
             {
                 SlashUp();
                 nextAttackTime = Time.time + 1f /attackRate;
             }
+            //punch
             else if (Input.GetKeyDown(KeyCode.F))
             {
                 anim.SetTrigger("attack");
                 Punch();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
+            //knife throw
             else if(Input.GetKeyDown(KeyCode.R) && canThrow)
             {
                 anim.SetTrigger("rangedAttack");
@@ -44,13 +47,13 @@ public class GroundAttacks : MonoBehaviour
             }
 
         }
-
+        //test for air attacks
         if (!check.grounded && !check.jumpAttack)
         {
             if (Input.GetKeyDown(KeyCode.R) && !airAttack && canThrow) { SlashUp(); airAttack = true; }
         }
 
-
+        //combo attacks
         if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift))
         {
             SlashDown();
@@ -67,7 +70,7 @@ public class GroundAttacks : MonoBehaviour
 
     }
 
-
+    //animator setter functions
     private void SlashUp()
     {
         anim.SetTrigger("attack");
@@ -91,7 +94,7 @@ public class GroundAttacks : MonoBehaviour
     }
 
 
-
+    //inventory check makes sure that there are still swords available.
     private void inventoryCheck()
     {
         int ind = projectileLauncher.getIndex();

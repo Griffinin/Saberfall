@@ -34,6 +34,7 @@ public class ProjectileLauncher : MonoBehaviour
     {
         switch (index)
         {
+            //subtract items from the inventory when firing 
             case 0:
                 MenuController.removeItem(GameObject.Find("ItemList/Sword"));
                 break;

@@ -19,7 +19,7 @@ public class UnitHealth : MonoBehaviour
 
     }
 
-
+    //sets the health
     public int Health
     {
         get { return _currentHealth; }
@@ -38,7 +38,7 @@ public class UnitHealth : MonoBehaviour
         get { return _maxHealth; }
         private set { _maxHealth = value; }
     }
-
+    //getter and setters for IsAlive
     public bool IsAlive
     {
         get
@@ -50,7 +50,7 @@ public class UnitHealth : MonoBehaviour
             anim.SetBool("isAlive", value);
         }
     }
-
+    //getter and setters for isHit
     public bool IsHit
     {
         get
@@ -70,7 +70,7 @@ public class UnitHealth : MonoBehaviour
     }
 
 
-    //todo: adding knockback?
+    //damages the player by subtracting health
     public bool DamageUnit(int damageAmount, Vector2 knockback)
     {
         if (IsAlive)
@@ -85,6 +85,7 @@ public class UnitHealth : MonoBehaviour
         return false;
     }
 
+    //healing 
     public void HealUnit(int healAmount)
     {
         if (_currentHealth + healAmount > _maxHealth) _currentHealth = _maxHealth;

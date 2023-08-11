@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-
+    //destorys a projectile after a delay
     private IEnumerator DestroyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -31,10 +31,10 @@ public class Projectile : MonoBehaviour
 
         StartCoroutine(DestroyAfterDelay(15f));
     }
-
+    //if the projectile hits the player damage the player 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!beenHit)
+        if (!beenHit) //makes sure that each projectile can only hit the player once
         {
             UnitHealth damageable = collision.GetComponentInParent<UnitHealth>();
             if (damageable != null)

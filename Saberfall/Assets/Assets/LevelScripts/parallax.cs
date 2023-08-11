@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//obsolete parallax script
+
 public class parallax : MonoBehaviour
 {
     Material mat;

@@ -1,3 +1,4 @@
+//obsolete EnemyHealth class
 public class EnemyHealth
 {
     private int _currentHealth;
