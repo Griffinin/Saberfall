@@ -1,6 +1,10 @@
 
 using UnityEngine;
 
+/// <summary>
+/// Controls the behavior of the enemy, including movement, patrolling, attacking, and interaction with the player.
+/// </summary>
+
 public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
@@ -30,18 +34,13 @@ public class EnemyBehavior : MonoBehaviour
     internal PatrolPath.Mover mover;
     private bool flipping = true;
 
-    // protected GroundedController2D groundedController2D;
 
-    // Animation States
-    private const string IDLE = "void_idle";
-    private const string RUN = "void_run";
-    private const string DEATH = "void_die";
-    private const string ATTACK = "void_attack";
-    private const string HURT = "void_hurt";
 
+    /// <summary>
+    /// Initializes required components and properties for the enemy behavior.
+    /// </summary>
     private void Start()
     {
-        //groundedController2D = GetComponent<GroundedController2D>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -49,7 +48,6 @@ public class EnemyBehavior : MonoBehaviour
         _enemyHealth = new EnemyHealth(100, 100);
         
         //todo Add when health set for player
-        //_healthBar.SetMaxHleath(_enemyHealth.MaxHealth);
 
         if (path != null)
         {
@@ -60,14 +58,11 @@ public class EnemyBehavior : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-        //anim.SetTrigger("enemyIdle");
-        //ChangeAnimationState(IDLE); //todo initaliaze or replace with tag?
-
-        //float widthScaleFactor = 202f / 37f;
-        //float heightScaleFactor = 123f / 27f;
-        //transform.localScale = new Vector3(widthScaleFactor, heightScaleFactor, 1f);
-
     }
+
+    /// <summary>
+    /// Indicates if the enemy can move or not based on its current animation state.
+    /// </summary>
     public bool CanMove
     {
         get
@@ -77,6 +72,9 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the enemy's behavior including movement, patrolling, and attacking based on its proximity to the player.
+    /// </summary>
     private void Update()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
@@ -110,13 +108,9 @@ public class EnemyBehavior : MonoBehaviour
                 transform.position = newPosition;
 
                 sprite.flipX = !movingRight; // flip the enemy sprite based on direction
-                /*if(!movingRight && flipping)
-                {
-                    flip();
-                }*/
+
 
                 anim.SetTrigger("enemyRun");
-                // ChangeAnimationState(RUN);
             }
         }
         else if (mover != null && CanMove) // If the player is not within the patrol radius, continue patrolling.
@@ -126,28 +120,19 @@ public class EnemyBehavior : MonoBehaviour
             transform.position = newPosition;
 
             sprite.flipX = !movingRight; // flip the enemy sprite based on direction
-            /*if(!movingRight && !flipping)
-            {
-                flip();
-            }*/
+
 
             anim.SetTrigger("enemyRun");
-            // ChangeAnimationState(RUN);
         }
         timeSinceLastAttack += Time.deltaTime;
 
 
-        /*if (!movingRight && flipping)
-        {
-            flip();
-        }
-        else if (movingRight && !flipping)
-        {
-            flip();
-        }*/
+
     }
 
-
+    /// <summary>
+    /// Detects collisions with other game objects, specifically the player, to inflict damage.
+    /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -155,19 +140,11 @@ public class EnemyBehavior : MonoBehaviour
 
             GameManager.gameManager._playerHealth.DamageUnit(damageAmount, defaultKnockback);
         }
-        //else if (collision.gameObject.CompareTag("Wall"))
-        //{
-
-        //    movingRight = !movingRight;
-        //}
     }
 
-    /*public void EnemyTakeDamage(int damage)
-    {
-        _enemyHealth.DamageEnemy(damage);
-        _healthBar.SetHleath(_enemyHealth.Health);
-    }*/
-
+    /// <summary>
+    /// Changes the enemy's animation state.
+    /// </summary>
     private void ChangeAnimationState(string newState)
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName(newState)) return;
@@ -175,41 +152,36 @@ public class EnemyBehavior : MonoBehaviour
         anim.Play(newState);
     }
 
+    /// <summary>
+    /// Triggers the enemy's attack action.
+    /// </summary>
     private void Attack()
     {
 
-        //ChangeAnimationState(ATTACK);
-
         anim.SetTrigger("enemyAttack");
         // Check if player is in range
-        //Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
-        //foreach (Collider2D player in hitPlayers)
-        //{
-        //    if (player.CompareTag("Player"))
-        //    {
-        //        GameManager.gameManager._playerHealth.DamageUnit(attackDamage);
-        //    }
-        //}
-
-       /* Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
-        foreach (Collider2D playerCollider in hitPlayers)
-        {
-            if (playerCollider.CompareTag("Player"))
-            {
-                GameManager.gameManager._playerHealth.DamageUnit(attackDamage, defaultKnockback);
-            }
-        }*/
     }
 
+    /// <summary>
+    /// Visualizes the enemy's attack range within the Unity Editor using gizmos.
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    /// <summary>
+    /// Destroys the enemy game object.
+    /// </summary>
     public void DestroyGameObject()
     {
         Destroy(gameObject);
     }
+
+
+    /// <summary>
+    /// Flips the enemy's orientation.
+    /// </summary>
 
     private void flip()
     {
